@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
+const config = require('./env');
 
 let mongoMemoryServer = null;
 
 const connectDB = async () => {
-  const uri = process.env.MONGODB_URI;
+  const uri = config.MONGODB_URI || process.env.MONGODB_URI;
 
   if (uri) {
     try {
