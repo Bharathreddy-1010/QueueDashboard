@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 
 export const Input = ({
   label,
@@ -13,7 +14,11 @@ export const Input = ({
   variant = 'dark', // 'dark' or 'light'
   ...props
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
   const inputId = id || (label ? label.toLowerCase().replace(/\s+/g, '-') : undefined);
+
+  const isPasswordField = type === 'password';
+  const effectiveType = isPasswordField ? (showPassword ? 'text' : 'password') : type;
 
   const styleVariants = {
     dark:
@@ -44,15 +49,31 @@ export const Input = ({
 
         <input
           id={inputId}
-          type={type}
+          type={effectiveType}
           required={required}
           className={`w-full px-3.5 py-2.5 rounded-xl text-sm border transition-colors outline-none focus:ring-2 ${
             Icon ? 'pl-10' : ''
-          } ${styleVariants[variant]} ${
+          } ${isPasswordField ? 'pr-10' : ''} ${styleVariants[variant]} ${
             error ? 'border-rose-500 focus:border-rose-500 focus:ring-rose-500/20' : ''
           } ${className}`}
           {...props}
         />
+
+        {isPasswordField && (
+          <button
+            type="button"
+            tabIndex={-1}
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#8E9393] hover:text-[#050606] transition-colors focus:outline-none"
+            title={showPassword ? 'Hide password' : 'Show password'}
+          >
+            {showPassword ? (
+              <EyeOff className="w-4 h-4 text-[#4A5050]" />
+            ) : (
+              <Eye className="w-4 h-4 text-[#8E9393]" />
+            )}
+          </button>
+        )}
       </div>
 
       {error ? (
