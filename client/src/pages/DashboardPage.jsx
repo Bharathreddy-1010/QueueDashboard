@@ -27,7 +27,7 @@ import toast from 'react-hot-toast';
 
 export const DashboardPage = () => {
   const { openSidebar } = useOutletContext() || {};
-  const { socket, joinQueue, leaveQueue } = useSocket();
+  const { socket, isConnected, joinQueue, leaveQueue } = useSocket();
 
   const [queues, setQueues] = useState([]);
   const [selectedQueueId, setSelectedQueueId] = useState(null);

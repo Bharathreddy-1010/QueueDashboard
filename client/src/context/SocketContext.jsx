@@ -25,8 +25,9 @@ export const SocketProvider = ({ children }) => {
     const socket = io(socketUrl, {
       auth: { token },
       transports: ['websocket', 'polling'],
-      reconnectionAttempts: 10,
-      reconnectionDelay: 2000,
+      reconnectionAttempts: 3,
+      reconnectionDelay: 5000,
+      timeout: 5000,
     });
 
     socketRef.current = socket;
@@ -37,12 +38,11 @@ export const SocketProvider = ({ children }) => {
     });
 
     socket.on('disconnect', (reason) => {
-      console.log('[Socket] Disconnected:', reason);
       setIsConnected(false);
     });
 
-    socket.on('connect_error', (err) => {
-      console.warn('[Socket] Connection error:', err.message);
+    socket.on('connect_error', () => {
+      // In serverless environments (e.g. Vercel), WebSockets fallback to polling
       setIsConnected(false);
     });
 
