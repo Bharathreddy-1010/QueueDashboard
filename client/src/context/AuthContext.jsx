@@ -60,6 +60,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const register = async (name, email, password) => {
+    try {
+      const res = await authApi.register({ name, email, password });
+      if (res.success && res.data) {
+        const { token: newToken, user: newUser } = res.data;
+        setToken(newToken);
+        setUser(newUser);
+        localStorage.setItem('queuepro_token', newToken);
+        localStorage.setItem('queuepro_user', JSON.stringify(newUser));
+        toast.success(`Account created! Welcome, ${newUser.name}!`);
+        return { success: true };
+      }
+    } catch (err) {
+      const message = err.response?.data?.message || 'Registration failed. Please check details.';
+      toast.error(message);
+      return { success: false, message };
+    }
+  };
+
   const logout = async () => {
     try {
       await authApi.logout();
@@ -88,6 +107,7 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: !!token && !!user,
     loading,
     login,
+    register,
     logout,
     updateUserProfile,
   };
