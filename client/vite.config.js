@@ -14,6 +14,14 @@ export default defineConfig({
       '/socket.io': {
         target: 'http://localhost:5001',
         ws: true,
+        configure: (proxy) => {
+          proxy.on('error', (err) => {
+            // Suppress normal socket close / ECONNRESET on reloads or disconnects
+            if (err.code !== 'ECONNRESET') {
+              console.warn('[Vite Proxy Warning]', err.message);
+            }
+          });
+        },
       },
     },
   },
