@@ -1,0 +1,29 @@
+{
+  "name": "queuepro",
+  "version": "1.0.0",
+  "description": "QueuePro - Real-time Queue Management System MVP",
+  "main": "server/server.js",
+  "scripts": {
+    "setup": "npm install && cd server && npm install && cd ../client && npm install",
+    "seed": "cd server && npm run seed",
+    "dev": "concurrently -n \"SERVER,CLIENT\" -c \"bgBlue.bold,bgGreen.bold\" \"npm run server:dev\" \"npm run client:dev\"",
+    "server:dev": "cd server && npm run dev",
+    "client:dev": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "test": "cd server && npm test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "keywords": [
+    "queue",
+    "management",
+    "realtime",
+    "socket.io",
+    "react",
+    "express",
+    "mongodb"
+  ],
+  "author": "QueuePro Engineering",
+  "license": "MIT"
+}
