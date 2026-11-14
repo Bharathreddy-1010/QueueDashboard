@@ -14,9 +14,9 @@ export const CurrentServingBanner = ({
 }) => {
   if (!token) {
     return (
-      <div className="bg-[#131616] border border-[#272D2D] rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="bg-black/50 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
         <div className="flex items-center gap-4 text-center sm:text-left">
-          <div className="w-12 h-12 rounded-2xl bg-[#0D0F0F] border border-[#272D2D] text-[#C8FF00] flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 rounded-2xl bg-black/60 border border-white/10 text-[#C8FF00] flex items-center justify-center flex-shrink-0">
             <Sparkles className="w-6 h-6 animate-pulse" />
           </div>
           <div>
@@ -45,7 +45,7 @@ export const CurrentServingBanner = ({
   }
 
   return (
-    <div className="bg-[#131616] border-2 border-[#00C8FF]/40 rounded-2xl p-6 shadow-soft relative overflow-hidden">
+    <div className="bg-black/55 backdrop-blur-xl border-2 border-[#00C8FF]/50 rounded-2xl p-6 shadow-soft relative overflow-hidden">
       {/* Background glow accent */}
       <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-[#00C8FF]/10 rounded-full blur-2xl pointer-events-none" />
 

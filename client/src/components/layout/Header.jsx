@@ -25,7 +25,7 @@ export const Header = ({ title, subtitle, onMenuClick, rightAction }) => {
   ];
 
   return (
-    <header className="sticky top-0 z-30 h-20 bg-[#050606]/95 backdrop-blur-md border-b border-[#1D2222] px-4 sm:px-8 flex items-center justify-between">
+    <header className="sticky top-0 z-30 h-20 bg-[#050606]/40 backdrop-blur-2xl border-b border-white/10 px-4 sm:px-8 flex items-center justify-between">
       <div className="flex items-center gap-3">
         <button
           onClick={onMenuClick}

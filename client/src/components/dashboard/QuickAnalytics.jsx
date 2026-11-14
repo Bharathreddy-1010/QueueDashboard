@@ -40,7 +40,7 @@ export const QuickAnalytics = ({ charts = {}, metrics = {} }) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       {/* 1. Queue Length Trend */}
-      <div className="lg:col-span-2 bg-[#131616] border border-[#272D2D] rounded-2xl p-6 shadow-soft">
+      <div className="lg:col-span-2 bg-black/55 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-soft">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-xl bg-[#0D0F0F] text-[#C8FF00] border border-[#272D2D]">
@@ -92,7 +92,7 @@ export const QuickAnalytics = ({ charts = {}, metrics = {} }) => {
       </div>
 
       {/* 2. Status Distribution */}
-      <div className="bg-[#131616] border border-[#272D2D] rounded-2xl p-6 shadow-soft flex flex-col justify-between">
+      <div className="bg-black/55 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-soft flex flex-col justify-between">
         <div>
           <div className="flex items-center gap-2.5 mb-4">
             <div className="p-2 rounded-xl bg-[#0D0F0F] text-[#00C8FF] border border-[#272D2D]">

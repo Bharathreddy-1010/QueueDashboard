@@ -351,9 +351,9 @@ export const DashboardPage = () => {
         )}
 
         {/* 2. Queue Selector Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-[#0D0F0F] border border-[#1D2222]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-2xl bg-black/45 backdrop-blur-xl border border-white/10">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-xl bg-[#131616] text-[#C8FF00] border border-[#272D2D]">
+            <div className="p-2 rounded-xl bg-black/60 text-[#C8FF00] border border-white/10">
               <Layers className="w-5 h-5" />
             </div>
             <div>
@@ -364,7 +364,7 @@ export const DashboardPage = () => {
                 <select
                   value={selectedQueueId || ''}
                   onChange={(e) => setSelectedQueueId(e.target.value)}
-                  className="appearance-none bg-[#131616] text-[#F5F3EF] font-bold text-base pr-8 pl-3 py-1.5 rounded-xl border border-[#272D2D] hover:border-[#3B4242] focus:border-[#C8FF00] focus:ring-1 focus:ring-[#C8FF00] outline-none transition-colors cursor-pointer"
+                  className="appearance-none bg-black/60 text-[#F5F3EF] font-bold text-base pr-8 pl-3 py-1.5 rounded-xl border border-white/10 hover:border-white/20 focus:border-[#C8FF00] focus:ring-1 focus:ring-[#C8FF00] outline-none transition-colors cursor-pointer"
                 >
                   {queues.map((q) => (
                     <option key={q._id} value={q._id} className="bg-[#131616] text-[#F5F3EF]">
