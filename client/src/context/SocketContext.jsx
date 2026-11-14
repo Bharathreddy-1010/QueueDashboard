@@ -20,8 +20,9 @@ export const SocketProvider = ({ children }) => {
       return;
     }
 
-    // Connect to backend Socket.IO
-    const socket = io({
+    // Connect to backend Socket.IO (uses custom URL if provided, otherwise window location)
+    const socketUrl = import.meta.env.VITE_SOCKET_URL || import.meta.env.VITE_API_URL || undefined;
+    const socket = io(socketUrl, {
       auth: { token },
       transports: ['websocket', 'polling'],
       reconnectionAttempts: 10,

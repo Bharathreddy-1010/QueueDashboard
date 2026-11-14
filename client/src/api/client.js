@@ -1,7 +1,12 @@
 import axios from 'axios';
 
+// Resolve API base URL: custom backend URL if deployed, or relative /api for local Vite proxy
+const apiBase = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/api`
+  : '/api';
+
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: apiBase,
   headers: {
     'Content-Type': 'application/json',
   },
