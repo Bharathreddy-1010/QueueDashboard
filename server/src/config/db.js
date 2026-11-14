@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { MongoMemoryServer } = require('mongodb-memory-server');
 const config = require('./env');
 
 let mongoMemoryServer = null;
@@ -14,27 +13,35 @@ const connectDB = async () => {
 
   if (uri) {
     try {
-      console.log(`[Database] Attempting connection to MONGODB_URI: ${uri.replace(/\/\/.*@/, '//***@')}`);
+      console.log(`[Database] Attempting connection to MONGODB_URI...`);
       await mongoose.connect(uri, {
         serverSelectionTimeoutMS: 5000,
       });
       console.log('[Database] Successfully connected to provided MongoDB instance.');
       return;
     } catch (err) {
-      console.warn(`[Database] Could not connect to provided MONGODB_URI (${err.message}). Falling back to MongoMemoryServer...`);
+      console.error(`[Database] Could not connect to provided MONGODB_URI: ${err.message}`);
+      if (process.env.NODE_ENV === 'production') {
+        throw err;
+      }
     }
   }
 
-  // Fallback to MongoMemoryServer
+  // Fallback to MongoMemoryServer only in non-production local development
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('MONGODB_URI must be configured and accessible in production');
+  }
+
   try {
     console.log('[Database] Starting embedded MongoMemoryServer (Zero-config standalone mode)...');
+    const { MongoMemoryServer } = require('mongodb-memory-server');
     mongoMemoryServer = await MongoMemoryServer.create();
     const memoryUri = mongoMemoryServer.getUri();
     await mongoose.connect(memoryUri);
     console.log(`[Database] Connected to embedded MongoMemoryServer at: ${memoryUri}`);
   } catch (error) {
     console.error('[Database] Failed to initialize MongoMemoryServer:', error);
-    process.exit(1);
+    throw error;
   }
 };
 

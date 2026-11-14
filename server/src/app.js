@@ -27,11 +27,29 @@ if (process.env.NODE_ENV !== 'test') {
 
 // Health check
 app.get('/api/health', (req, res) => {
+  const mongoose = require('mongoose');
   res.status(200).json({
     status: 'healthy',
     service: 'QueuePro API',
+    database: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
     timestamp: new Date().toISOString(),
   });
+});
+
+// Database connection middleware for serverless / on-demand environments
+const { connectDB } = require('./config/db');
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error('[Database Middleware] MongoDB connection error:', err);
+    return res.status(500).json({
+      success: false,
+      message: 'Database connection failed. Please ensure MongoDB Atlas Network Access whitelist has 0.0.0.0/0.',
+      error: err.message,
+    });
+  }
 });
 
 // API Routes
