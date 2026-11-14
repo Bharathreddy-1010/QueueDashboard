@@ -113,6 +113,17 @@ export const DashboardPage = () => {
     }
   }, [selectedQueueId, loadQueueTokens, joinQueue, leaveQueue]);
 
+  // Fallback background polling when WebSockets are disconnected (e.g. serverless deployment)
+  useEffect(() => {
+    if (isConnected) return;
+    const interval = setInterval(() => {
+      if (selectedQueueId) {
+        loadQueueTokens(selectedQueueId);
+      }
+    }, 7000);
+    return () => clearInterval(interval);
+  }, [isConnected, selectedQueueId, loadQueueTokens]);
+
   // Socket.IO event listeners for real-time synchronization
   useEffect(() => {
     if (!socket) return;

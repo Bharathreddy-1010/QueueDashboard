@@ -5,6 +5,11 @@ const config = require('./env');
 let mongoMemoryServer = null;
 
 const connectDB = async () => {
+  // Reuse existing connection if already active (serverless warm instances)
+  if (mongoose.connection.readyState >= 1) {
+    return;
+  }
+
   const uri = config.MONGODB_URI || process.env.MONGODB_URI;
 
   if (uri) {
